@@ -1,0 +1,525 @@
+body
+{
+  height: 100vh;
+  margin: 0 auto;
+  background: linear-gradient(0deg, #fefefe, #666666 30%) no-repeat;
+}
+
+/* body settings for cinema mode */
+body.cinemaMode
+{
+  background: #111111;
+}
+
+/* settings for the player */
+.player
+{
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  transform: scaleX(1) scaleY(1);
+  will-change: transform;
+}
+
+/* player settings for cinema mode */
+.player.cinemaMode
+{
+  transform: scaleX(1.3) scaleY(1.3);
+}
+
+/* settings for the video size */
+.player video
+{
+  width: 60vw;
+}
+
+/* settings for the title */
+.player .title
+{
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  height: 5%;
+  width: 30%;
+  z-index: 2147483647; /* Needed to make title appear in fullscreen mode */
+  color: #fefefe;
+  font-weight: bolder;
+  opacity: 1;
+  will-change: opacity;
+}
+
+/* timedFade animation on the title settings */
+.player .title.timedFade
+{
+  animation-name: timedFade;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
+}
+
+/* instantFade transition on the title settings */
+.player .title.instantFade
+{
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+
+/******************
+
+  Overlay
+
+*******************/
+
+/* settings for overlays used for the pause & play shadow animations over the video */
+.player .overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2147483647; /* Needed to make overlay clickable in fullscreen mode */
+  width: 100%;
+  height: 90%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  opacity: 0; 
+}
+
+.player .overlay.play
+{
+  background-image: url(../images/playWhite.svg);
+}
+
+.player .overlay.pause
+{
+  background-image: url(../images/pauseWhite.svg);
+}
+
+/* settings for the shadow animation over the video */
+.player .overlay.play.status, .player .overlay.pause.status
+{
+  animation: shadowStatus 1s;
+  will-change: opacity;
+}
+
+/* keyframes for the shadow animation over the video */
+@keyframes shadowStatus
+{
+  0% { opacity: 0}
+  50%{ opacity: 0.7}
+  100%{ opacity: 0}
+}
+
+/******************
+
+  Controls
+
+******************/
+
+/* settings for the div comprising all the controls */
+.player .controls
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 8%;
+  width: 100%;
+  z-index: 2147483647; /* Needed to make controls appear in fullscreen mode */
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  will-change: opacity;
+}
+
+/* settings for the instantFade transition of the controls */
+.player .controls.instantFade
+{
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+
+/* settings for the timedFade animation of the controls */
+.player .controls.timedFade
+{
+  animation-name: timedFade;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-delay: 5s;
+  animation-fill-mode: forwards; /* Prevent the controls from reapparing after the animation ends */
+}
+
+/* keyframes for the timedFade animation */
+@keyframes timedFade
+{
+  100%{ opacity: 0 }
+}
+
+/* Settings for the seek bar */
+.player .seek-bar
+{
+  position: absolute;
+  margin: 0 2.5%;
+  width: 95%;
+  height: 15%;
+  background: #cccccc;
+  cursor: pointer;
+  z-index: 98;
+}
+
+/* Settings for the fill bar (current time bar inside the seek bar) */
+.player .seek-bar .fill-bar
+{
+  width: 100%;
+  height: 100%;
+  background: red;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  will-change : transform;
+}
+
+/* Settings for the time cursor appearing on the hover of the controls */
+.player .controls:hover .seek-bar .time-cursor
+{
+  position: absolute;
+  top: calc(50% - 0.35rem);
+  left: -0.35rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background-color: red;
+  margin: none !Important;
+  z-index: 99;
+  transform: translateX(0);
+  will-change: transform;
+}
+
+/* Settings for the time cursor in fullscreen mode */
+.player .controls:hover .seek-bar .time-cursor.fullScreen
+{
+  top: calc(50% - 0.6rem);
+  left: -0.6rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Settings for the lower part of the controls (comprising the buttons and the video time */
+.player .buttons 
+{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80%;;
+}
+
+/* Settings for all the button of the buttons section of the controls */
+.player .buttons button
+{
+  position: absolute;
+  top: 50%;
+  height: 60%;
+  width: 5%;
+  transform: translateY(-50%);
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat; 
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* General settings for the play button */
+.player .buttons .play
+{
+  left: 1%;
+  background-image: url(../images/playWhite.svg);
+  will-change: transform, opacity; 
+}
+
+/* Settings for the transition on play button the video is played*/
+.player .buttons .play.playing
+{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Settings for the rotate animation on play button when the video is paused */
+.player .buttons .play.paused
+{
+  opacity: 0;
+  animation: 0.6s rotateButton;
+}
+
+/* Setting for the play button before the video is paused for the first time */
+.player .buttons .play.tempHiding
+{
+  opacity: 0;
+}
+
+/* General settings for the pause button */
+.player .buttons .pause
+{
+  left: 1%;
+  background-image: url(../images/pauseWhite.svg);
+  will-change: transform, opacity; 
+}
+
+/* Settings for the rotate animation on pause button when the video is played */
+.player .buttons .pause.playing
+{
+  opacity: 0;
+  animation: 0.6s rotateButton;
+}
+
+/* Settings for the transition on pause button the video is paused*/
+.player .buttons .pause.paused
+{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Keyframes for the rotation animation on play & pause buttons */
+@keyframes rotateButton
+{
+  0% { transform: translateY(-50%) rotate(0);
+                  opacity: 1;
+     }
+  
+  50% { transform: translateY(-50%) rotate(-90deg);
+        opacity: 0;
+      }
+  100% { transform: translateY(-50%) rotate(0); 
+        opacity: 0;
+      }
+}
+
+/* Settings for the div containing the volume button and volume-bar */
+.player .buttons .volumeContainer
+{
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  height: 100%;
+  width: 20%;
+  transform: translateY(-50%);
+}
+
+/* Settings for the volume buttons */
+.player .buttons .volume
+{
+  height: 60%;
+  width: 20%;
+  left: 0;
+  padding-right: 1%;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* Settings for the volume button when volume < 33% */
+.player .buttons .volume1
+{
+  z-index: 99;
+  background-image: url(../images/volume1White.svg);
+}
+
+/* Settings for the volume button when 33% < volume < 66% */
+.player .buttons .volume2
+{
+  background-image: url(../images/volume2White.svg);
+}
+
+/* Settings for the volume button when volume > 66% */
+.player .buttons .volume3
+{
+  background-image: url(../images/volume3White.svg);
+}
+
+/* Settings for the volume button when the volume is muted */
+.player .buttons .volumeMuted
+{
+  background-image: url(../images/volume-xWhite.svg);
+}
+
+/* Transition for volume button */
+.player .buttons .volume.active
+{
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+/* Settings for the volume bar */
+.player .buttons .volume-bar
+{
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  height: 20%;
+  width: 60%;
+  transform: translateY(-50%);
+  background-color: #fefefe;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+}
+
+/* Settings for the current volume bar (=fill bar) */
+.player .buttons .volume-bar .current-volume-bar
+{
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  transform-origin: 0 0;
+  transform: scaleX(1);
+  will-change: transform;
+}
+
+/* Settings for the transition on the volume bar when the volume area is hovered */
+.player .buttons .volumeContainer:hover .volume-bar
+{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* General settings for the video time div */
+.player .buttons .videoTime 
+{
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  height: 60%;
+  width: 12%;
+  color: #fefefe;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  transform: translateX(0) translateY(-50%);
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+/* Settings for the p inside the video time used to center the display of the video time in the controls */
+.player .buttons .videoTime p
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  margin: 0;
+}
+
+/* Settings for the transition on video time when the volume area is hovered */
+.player .buttons .volumeContainer:hover + .videoTime
+{
+  transform: translateX(100%) translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+/* Settings for the hd button */
+.player .buttons .quality
+{
+  right: 12%;
+  font-weight: bolder;
+  text-align: center;
+  color: #fefefe;
+  opacity: 1;
+  will-change: opacity;
+}
+
+/* Settings for the hd button when low quality is chosen */
+.player .buttons .quality.sd
+{
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+/* Settings for the cinema button */
+.player .buttons .cinema
+{
+  transform: translateY(-55%);
+  right: 7%;
+  background-image: url(../images/tvWhite.svg);
+}
+
+/* Settings for the animation on cinema button when hovered */
+.player .buttons .cinema:hover
+{
+  animation: 0.3s hoverCinema;
+}
+
+/* Keyframes for the animation on cinema button when hovered */
+@keyframes hoverCinema
+{
+  0% { transform: translateY(-55%) scale(1)}
+  50% { transform: translateY(-55%) scale(1.25)}
+  100% { transform: translateY(-55%) scale(1)}
+}
+
+/* Settings for fullscreen button */
+.player .buttons .fullScreen
+{
+  right: 1%;
+  background-image: url(../images/maximizeWhite.svg);
+  opacity: 0;
+  z-index: 99;
+  will-change: opacity, transform;
+}
+
+/* Settings for transition on fullscreen button when he becomes active */
+.player .buttons .fullScreen.active
+{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Settings for animation on fullscreen button when hovered */
+.player .buttons .fullScreen.active:hover
+{
+  animation: 0.3s hoverFullScreen;
+}
+
+/* Keyframes for animation on fullscreen button when hovered */
+@keyframes hoverFullScreen
+{
+  0% { transform: translateY(-50%) scale(1)}
+  50% { transform: translateY(-50%) scale(1.25)}
+  100% { transform: translateY(-50%) scale(1)}
+}
+
+/* Settings for exitFullscreen button */
+.player .buttons .exitFullScreen
+{
+  right: 1%;
+  background-image: url(../images/minimizeWhite.svg);
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* Settings for transition on exitFullscreen button when he becomes active */
+.player .buttons .exitFullScreen.active
+{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Settings for animation on exitFullscreen button when hovered */
+.player .buttons .fullScreen:hover + .exitFullScreen.active
+{
+  animation: 0.3s hoverExitFullScreen;
+}
+
+/* Keyframes for animation on exitFullscreen button when hovered */
+@keyframes hoverExitFullScreen
+{
+  0% { transform: translateY(-50%) scale(1)}
+  50% { transform: translateY(-50%) scale(0.75)}
+  100% { transform: translateY(-50%) scale(1)}
+}
+
+/* Hides original control bar in fullscreen mode */
+video::-webkit-media-controls
+{
+  display: none !Important;
+}

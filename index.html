@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Player</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div class="player">   
+      <video src="videos/video.mp4" autoplay>
+      </video>
+      <div class="title timedFade">Beyond Good and Evil 2 trailer</div>
+      <div class="overlay play"></div>
+      <div class="overlay pause"></div>
+      <div class="controls timedFade">
+        <div class="seek-bar">
+          <div class="time-cursor"></div>
+          <div class="fill-bar"></div>
+        </div>
+        <div class="buttons">
+          <button class="play tempHiding"></button>
+          <button class="pause paused"></button>
+          <div class="volumeContainer">
+            <button class="volume volume1"></button>
+            <button class="volume volume2"></button>
+            <button class="volume volume3 active"></button>
+            <button class="volume volumeMuted"></button>
+            <div class="volume-bar">
+              <div class="current-volume-bar"></div>
+            </div>
+          </div>
+          <div class="videoTime">
+            <p></p>
+          </div>
+          <button class="quality">HD</button>
+          <button class="cinema"></button>
+          <button class="fullScreen active"></button>
+          <button class="exitFullScreen"></button>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts/script.js"></script>
+  </body>
+</html>
